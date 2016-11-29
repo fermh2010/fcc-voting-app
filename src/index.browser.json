@@ -1,0 +1,6 @@
+{
+    "dependencies": [
+        "./index.scss",
+        "require-run: ./index.js"
+    ]
+}

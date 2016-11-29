@@ -1,0 +1,10 @@
+{
+    "outputDir": "./static",
+    "fingerprintsEnabled": false,
+    "minify": true,
+    "resolveCssUrls": true,
+    "bundlingEnabled": true,
+    "plugins": [
+      "lasso-sass"
+    ]
+}
