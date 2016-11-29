@@ -18,8 +18,3 @@ app.get('/', function(req, res, next) {
 app.listen(process.env.PORT || 8080, function() {
   console.log('server up');
 })
-
-/*
-- hacer script build-assets.js que recibe el nombre de página como parámetro
-y ejecute lasso --main <page>.js --inject-into <page>.marko
-*/
