@@ -1,0 +1,15 @@
+<div class="polls-list">
+  <await(polls from out.global.providers.polls())>
+    <await-error>
+    </await-error>
+    <await-timeout>
+    </await-timeout>
+
+    <ul if(polls.length > 0)>
+      <li for(poll in polls)>
+        <p>${poll.title}</p>
+      </li>
+    </ul>
+    <p else>No polls submited</p>
+  </await>
+</div>
