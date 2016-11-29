@@ -1,7 +1,18 @@
 const express = require('express');
 const app = express();
 
-require('lasso').configure('./client/lasso-config.json');
+const staticPath = "./client/static";
+
+require('lasso').configure({
+    "outputDir": staticPath,
+    "fingerprintsEnabled": false,
+    "minify": true,
+    "resolveCssUrls": true,
+    "bundlingEnabled": true,
+    "plugins": [
+      "lasso-sass"
+    ]
+});
 
 require('marko/node-require').install();
 require('marko/compiler').defaultOptions.writeToDisk = false;
@@ -21,7 +32,7 @@ const markoGlobals = {
   providers: providers
 }
 
-app.use('/static', express.static('client/static'));
+app.use('/static', express.static(staticPath));
 
 app.get('/', function(req, res, next) {
   pages.index.render({
