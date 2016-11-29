@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "devstart": "nodemon -e marko,scss,js -i client/static"
   },
   "author": "fermh2010",
   "license": "ISC",
