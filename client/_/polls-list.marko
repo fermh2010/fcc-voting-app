@@ -1,8 +1,10 @@
 <div class="polls-list">
   <await(polls from data.provider())>
     <await-error>
+        Error
     </await-error>
     <await-timeout>
+        Timeout error
     </await-timeout>
 
     <ul if(polls.length > 0)>
