@@ -17,38 +17,47 @@ require('lasso').configure({
 require('marko/node-require').install();
 require('marko/compiler').defaultOptions.writeToDisk = false;
 const pages = {
-  index: require('./client/index.marko')
+  index: require('./client/index.marko'),
+  newPoll: require('./client/new-poll.marko'),
+  userPolls: require('./client/user-polls.marko')
 }
 
 const providers = {
-  polls: function() {
+  allPolls: function() {
     return new Promise(function(resolve, reject) {
-      resolve([ { title: 'Foo' }, { title: 'Bar'} ]);
+      resolve([ { title: 'Foo' }, { title: 'Bar'}, { title: 'Baz' } ]);
+    });
+  },
+  userPolls: function() {
+    return new Promise(function(resolve, reject) {
+      resolve([ { title: 'asd' }, { title: 'qwe'}, { title: 'zxc' } ]);
     });
   }
 };
-
-const markoGlobals = {
-  providers: providers
-}
 
 app.use('/static', express.static(staticPath));
 
 app.get('/', function(req, res, next) {
   pages.index.render({
-    $global: markoGlobals
+    providers: providers
   }, res);
 });
 
-app.get('/login', function(req, res, next) {
+app.get('/logout', function(req, res, next) {
   res.end('TODO');
 });
 
-app.get('/user_polls', function(req, res, next) {
-  res.end('TODO');
+app.get('/user-polls', function(req, res, next) {
+  pages.userPolls.render({
+    providers: providers
+  }, res);
 });
 
-app.get('/new_poll', function(req, res, next) {
+app.get('/new-poll', function(req, res, next) {
+  pages.newPoll.render({}, res);
+});
+
+app.post('/new-poll', function(req, res, next) {
   res.end('TODO');
 });
 

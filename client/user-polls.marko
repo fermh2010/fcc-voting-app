@@ -1,0 +1,21 @@
+<lasso-page name="user-polls" dependencies=[
+  './user-polls.scss'
+]/>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>User polls</title>
+
+    <lasso-head />
+  </head>
+  <body>
+    <include("./_/header.marko")></include>
+
+    <h1>User polls</h1>
+    <include("./_/polls-list.marko") provider=data.providers.userPolls></include>
+
+    <lasso-body />
+  </body>
+</html>
