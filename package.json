@@ -9,6 +9,7 @@
   "author": "fermh2010",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "lasso": "^2.8.2",
     "lasso-sass": "^1.1.9",

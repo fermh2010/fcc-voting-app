@@ -1,0 +1,32 @@
+<lasso-page name='poll' dependencies=[
+  './poll.scss'
+] />
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Poll: "${data.poll.title}"</title>
+
+    <lasso-head />
+  </head>
+  <body>
+    <include("./_/header.marko")></include>
+
+    <h1>${data.poll.title}</h1>
+
+    <form method='post'>
+      <label>Vote for:
+        <select name="selected-option">
+          <option for(option in data.poll.options) value="${option}">${option}</option>
+        </select>
+      </label>
+
+      <br>
+
+      <button type='submit'>Vote</button>
+    </form>
+
+    <lasso-body />
+  </body>
+</html>

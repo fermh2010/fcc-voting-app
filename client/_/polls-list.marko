@@ -6,8 +6,9 @@
     </await-timeout>
 
     <ul if(polls.length > 0)>
-      <li for(poll in polls)>
-        <p>${poll.title}</p>
+      <li class='poll-item' for(poll in polls)>
+        <span>${poll.title}</span>
+        <a class='poll-item-button' href="polls/${poll.title}">Open</a>
       </li>
     </ul>
     <p else>No polls submited</p>

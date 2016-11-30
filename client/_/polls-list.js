@@ -1,3 +1,22 @@
-module.exports = function(param) {
-  console.log('polls-list.js ' + param);
+'use strict';
+
+module.exports = function() {
+  const lists = document.querySelectorAll('.polls-list');
+  for(let i = 0; i < lists.length; ++i) {
+    const list = lists.item(i);
+    hijackAnchors(list);
+  }
+
+  function hijackAnchors(list) {
+    const polls = list.querySelectorAll('.poll-item');
+    for (let i = 0; i < polls.length; i++) {
+      const anchor = polls[i].querySelector('.poll-item-button');
+      const href = anchor.href;
+      anchor.parentNode.removeChild(anchor);
+
+      polls[i].addEventListener('click', function(event) {
+        window.location = href;
+      });
+    }
+  }
 };

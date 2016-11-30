@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function() {
   const headers = document.getElementsByClassName('header');
   for(let i = 0; i < headers.length; ++i) {

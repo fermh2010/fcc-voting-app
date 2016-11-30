@@ -1,4 +1,4 @@
-require('./_/header.js')();
+'use strict';
 
-const pollsList = require('./_/polls-list.js');
-pollsList('test');
+require('./_/header.js')();
+require('./_/polls-list.js')();
