@@ -57,8 +57,26 @@ const providers = {
     });
   },
   userPolls: function() {
+    const currentUser = 'fer'; // TODO
+
     return new Promise(function(resolve, reject) {
-      resolve([ { title: 'asd' }, { title: 'qwe'}, { title: 'zxc' } ]);
+      MongoClient.connect(mongoURI)
+      .then(db => {
+        const c = db.collection('polls');
+        c.find({ user: currentUser })
+        .toArray()
+        .then(arr => {
+          db.close();
+          resolve(arr);
+        })
+        .catch(err => {
+          db.close();
+          reject(err);
+        });
+      })
+      .catch(err => {
+        reject(err);
+      });
     });
   }
 };
@@ -116,7 +134,8 @@ app.post('/new-poll', formParser, function(req, res, next) {
     const c = db.collection('polls');
     c.insertOne({
       title: pollTitle,
-      options: pollOptions
+      options: pollOptions,
+      user: 'fer'
     })
     .then(function() {
       db.close();
