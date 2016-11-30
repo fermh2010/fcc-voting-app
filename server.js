@@ -65,7 +65,7 @@ app.get('/new-poll', function(req, res, next) {
 });
 
 app.post('/new-poll', function(req, res, next) {
-  res.end('TODO');
+  res.redirect('/user-polls');
 });
 
 app.get('/polls/:pollId', function(req, res, next) {
