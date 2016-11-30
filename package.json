@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "devstart": "nodemon -e marko,scss,js -i client/static"
+    "devstart": "nodemon -e marko,scss,js -i client/static",
+    "lint": "./node_modules/.bin/eslint ."
   },
   "author": "fermh2010",
   "license": "ISC",
@@ -16,5 +17,8 @@
     "marko": "^3.12.1",
     "mongodb": "^2.2.12",
     "node-sass": "^3.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.11.1"
   }
 }
