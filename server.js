@@ -38,7 +38,7 @@ app.use('/static', express.static(staticPath));
 // routes
 app.get('/', function(req, res) {
     pages.index.render({
-        provider: db.allPolls()
+        provider: db.getAllPolls()
     }, res);
 });
 
@@ -48,7 +48,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/user-polls', function(req, res) {
     pages.userPolls.render({
-        provider: db.userPolls('fer')
+        provider: db.getUserPolls('fer')
     }, res);
 });
 
