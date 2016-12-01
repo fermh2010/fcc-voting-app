@@ -6,27 +6,42 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Poll: "${data.poll.title}"</title>
+    <title>Voting App</title>
 
     <lasso-head />
   </head>
   <body>
     <include("./_/header.marko")></include>
 
-    <h1>${data.poll.title}</h1>
-    <span>Submitted by: ${data.poll.user}</span>
+    <await(viewModel from data.provider)>
+        <await-error>
+            Error
+        </await-error>
+        <await-timeout>
+            Timeout
+        </await-timeout>
 
-    <form method='post'>
-      <label>Vote for:
-        <select name="selected-option">
-          <option for(option in data.poll.options) value="${option}">${option}</option>
-        </select>
-      </label>
+        <h1>${viewModel.pollTitle}</h1>
+        <span>Submitted by: ${viewModel.pollCreator}</span>
 
-      <br>
+        <span if(viewModel.userCurrentVote)>
+            You voted: ${viewModel.userCurrentVote}
+        </span>
 
-      <button type='submit'>Vote</button>
-    </form>
+        <form method='post'>
+          <label>Vote for:
+            <select name="selected-option">
+                <option for(option,votes in viewModel.pollResults) value="${option}">
+                    ${option} (${votes} ${votes == 1 ? 'vote' : 'votes'})
+                </option>
+            </select>
+          </label>
+
+          <br>
+
+          <button type='submit'>Vote</button>
+        </form>
+    </await>
 
     <lasso-body />
   </body>

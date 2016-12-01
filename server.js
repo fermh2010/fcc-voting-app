@@ -28,15 +28,6 @@ const pages = {
     poll: require('./client/poll.marko')
 };
 
-const providers = {
-    allPolls: function(skip, limit) {
-        return db.allPolls(skip, limit);
-    },
-    userPolls: function() {
-        return db.userPolls('fer'); // TODO
-    }
-};
-
 const formParser = require('body-parser').urlencoded({
     extended: false
 });
@@ -47,7 +38,7 @@ app.use('/static', express.static(staticPath));
 // routes
 app.get('/', function(req, res) {
     pages.index.render({
-        providers: providers
+        provider: db.allPolls()
     }, res);
 });
 
@@ -57,7 +48,7 @@ app.get('/logout', function(req, res) {
 
 app.get('/user-polls', function(req, res) {
     pages.userPolls.render({
-        providers: providers
+        provider: db.userPolls('fer')
     }, res);
 });
 
@@ -94,20 +85,35 @@ app.post('/new-poll', formParser, function(req, res, next) {
     });
 });
 
-app.get('/polls/:pollId', function(req, res, next) {
-    db.getPoll(req.params.pollId)
-    .then(doc => {
-        if(!doc) {
-            return res.status(200).send('poll not found');
-        } else {
-            pages.poll.render({
-                poll: doc
-            }, res);
-        }
-    })
-    .catch(err => {
-        return next(err);
-    });
+app.get('/polls/:pollId', function(req, res) {
+    pages.poll.render({
+        provider: new Promise(function(resolve, reject) {
+            Promise.all([
+                db.getPoll(req.params.pollId),
+                db.getPollVotes(req.params.pollId)
+            ])
+            .then(values => {
+                const poll = values[0];
+                const votes = values[1];
+                const merged = {};
+                for(let option of poll.options)
+                    merged[option] = 0;
+                for(let vote of votes)
+                    merged[vote.option] = vote.total;
+
+                resolve({
+                    pollTitle: poll.title,
+                    pollOptionsVotes: poll.options,
+                    pollCreator: poll.submittedBy,
+                    pollResults: merged,
+                    userCurrentVote: undefined
+                });
+            })
+            .catch(err => {
+                reject(err);
+            });
+        })
+    }, res);
 });
 
 app.post('/polls/:pollId', formParser, function(req, res, next) {
