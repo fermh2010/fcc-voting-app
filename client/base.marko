@@ -1,0 +1,17 @@
+<var d=[ 'require-run: ./base.js' ].concat(data.lassoPage.dependencies)/>
+<lasso-page name=data.lassoPage.name dependencies=d/>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Voting app</title>
+        <layout-placeholder name="head"/>
+        <lasso-head />
+    </head>
+    <body>
+        <include("./_/header.marko")></include>
+        <layout-placeholder name="body"/>
+        <lasso-body />
+    </body>
+</html>

@@ -1,20 +1,11 @@
-<lasso-page name='index' dependencies=[
-  './index.scss',
-  'require-run: ./index.js' ] />
+<layout-use("./base.marko") lasso-page={
+    name: 'index',
+    dependencies: [ './index.scss', 'require-run: ./index.js' ]
+}>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Voting app</title>
+  <layout-put into="body">
+      <h1>Submitted polls</h1>
+      <include("./_/polls-list.marko") provider=data.provider></include>
+  </layout-put>
 
-    <lasso-head />
-  </head>
-  <body>
-    <include("./_/header.marko")></include>
-    <h1>Submitted polls</h1>
-    <include("./_/polls-list.marko") provider=data.provider></include>
-
-    <lasso-body />
-  </body>
-</html>
+</layout-use>
