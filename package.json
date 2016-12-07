@@ -11,12 +11,18 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "concat-stream": "^1.5.2",
+    "connect-redis": "^3.1.0",
+    "dotenv": "^2.0.0",
     "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "helmet": "^3.1.0",
     "lasso": "^2.8.2",
     "lasso-sass": "^1.1.9",
     "marko": "^3.12.1",
     "mongodb": "^2.2.12",
-    "node-sass": "^3.13.0"
+    "node-sass": "^3.13.0",
+    "redis": "^2.6.3"
   },
   "devDependencies": {
     "eslint": "^3.11.1"

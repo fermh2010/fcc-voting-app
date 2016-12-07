@@ -2,9 +2,13 @@
   <a href="/">Voting app</a>
 
   <ul>
-    <a id='login-button'>Login</a>
-    <a href="/logout">Logout</a>
-    <a href="/user-polls">My polls</a>
-    <a href="/new-poll">New poll</a>
+    <if(out.global.req.session.user)>
+        <li> <a href="/logout">Logout</a> </li>
+        <li> <a href="/user-polls">My polls</a> </li>
+        <li> <a href="/new-poll">New poll</a> </li>
+    </if>
+    <else>
+        <li> <a href='/login'>Login</a> </li>
+    </else>
   </ul>
 </div>
