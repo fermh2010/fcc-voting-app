@@ -1,14 +1,22 @@
 <div class="header">
   <a href="/">Voting app</a>
 
+  <p if(out.global.req.session.user)>
+      Logged in as: ${out.global.req.session.user._id}
+  </p>
+
   <ul>
     <if(out.global.req.session.user)>
-        <li> <a href="/logout">Logout</a> </li>
-        <li> <a href="/user-polls">My polls</a> </li>
-        <li> <a href="/new-poll">New poll</a> </li>
+        <li> 
+            <form action='/auth/logout' method='post'>
+                <button>Logout</button>
+            </form>
+        </li>
+        <li> <a href="/polls/user">My polls</a> </li>
+        <li> <a href="/polls/new">New poll</a> </li>
     </if>
     <else>
-        <li> <a href='/login'>Login</a> </li>
+        <li> <a href='/auth'>Login</a> </li>
     </else>
   </ul>
 </div>
