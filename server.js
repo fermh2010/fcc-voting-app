@@ -200,9 +200,7 @@ Promise.all([
             });
         });
 
-        res.marko(pages.index, {
-            provider
-        });
+        res.marko(pages.index, { provider });
     });
 
     app.get('/logout', function(req, res) {
@@ -299,34 +297,34 @@ Promise.all([
             });
         });
 
-        res.marko(pages.poll, {
-            provider: new Promise(function(resolve, reject) {
-                Promise.all([
-                    getPoll,
-                    getPollVotes
-                ])
-                .then(values => {
-                    const poll = values[0];
-                    const votes = values[1];
-                    const merged = {};
-                    for(let option of poll.options)
-                        merged[option] = 0;
-                    for(let vote of votes)
-                        merged[vote.option] = vote.total;
+        const provider = new Promise(function(resolve, reject) {
+            Promise.all([
+                getPoll,
+                getPollVotes
+            ])
+            .then(values => {
+                const poll = values[0];
+                const votes = values[1];
+                const merged = {};
+                for(let option of poll.options)
+                    merged[option] = 0;
+                for(let vote of votes)
+                    merged[vote.option] = vote.total;
 
-                    resolve({
-                        pollTitle: poll.title,
-                        pollOptionsVotes: poll.options,
-                        pollCreator: poll.submittedBy,
-                        pollResults: merged,
-                        userCurrentVote: undefined
-                    });
-                })
-                .catch(err => {
-                    reject(err);
+                resolve({
+                    pollTitle: poll.title,
+                    pollOptionsVotes: poll.options,
+                    pollCreator: poll.submittedBy,
+                    pollResults: merged,
+                    userCurrentVote: undefined
                 });
             })
+            .catch(err => {
+                reject(err);
+            });
         });
+
+        res.marko(pages.poll, { provider });
     });
 
     app.post('/polls/:pollId', formParser, function(req, res, next) {
@@ -361,4 +359,5 @@ Promise.all([
 /**
  * - handle errors properly
  * - group route handlers into separate files
+ * - use marko custom tags for components?
  */
